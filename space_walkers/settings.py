@@ -27,8 +27,8 @@ DEBUG = False
 
 ALLOWED_HOSTS = ["*"]
 
-
-# Application definition
+GOOGLE_API_KEY = os.environ['GOOGLE_API_KEY']
+GOOGLE_SEARCH_ID = os.environ['GOOGLE_SEARCH_ID']
 
 INSTALLED_APPS = (
     'space_invaders',
