@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Space Invaders</title>
+</head>
+<body>
+<style>
+   .container
+   {
+      white-space: nowrap;
+      width: 100%;
+      height: 100%;
+      overflow-x: scroll;
+      overflow-y: scroll;
+   }
+   .slide
+   {
+       display: inline-block;
+       vertical-align: top;
+       white-space: normal;
+       float: left;
+       width: 400px;
+       height: 400px;
+       background-color: mauve;
+       margin: 5px;
+   }
+   img {
+       max-width: 100%;
+       max-height: 100%;
+   }
+   #map {
+       height: 400px;
+       width: 100%;
+   }
+</style>
+{% if astronauts_data %}
+<div class="container">
+    {% for astronaut in astronauts_data %}
+        <div class="slide">
+            <img src="{{ astronaut.image_url }}" title="{{ astronaut.name }}, {{ astronaut.craft }}">
+            <br>{{ astronaut.name }}, {{ astronaut.craft }}
+        </div>
+    {% endfor %}
+    {% if iss_data %}
+        <div class="slide">
+            <br>
+            <p>At {{ iss_data.timestamp }} UTC, ISS was at:</p>
+            <img src="https://maps.googleapis.com/maps/api/staticmap?center={{iss_data.iss_position.latitude}},{{iss_data.iss_position.longitude}}&zoom=4&size=600x300&markers=color:blue%7Clabel:S%7C{{iss_data.iss_position.latitude}},{{iss_data.iss_position.longitude}}&key=AIzaSyAVQTOc4NKtKrQ9dHARbrwZ7LO2uLvHevA">
+        </div>
+
+    {% else %}
+        <p>No ISS Location available.</p>
+    {% endif %}
+{% else %}
+    <p>No Astronaut Data available.</p>
+</div>
+{% endif %}
+</body>
+</html>
