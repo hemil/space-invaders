@@ -1,5 +1,12 @@
 import grequests
+import logging
 from django.conf import settings
+
+logger = logging.getLogger("space")
+
+
+def exception_handler(request, exception):
+    logger.error("Request Failed. Exception: {e}".format(e=exception))
 
 
 def accio_space_data():
@@ -7,7 +14,7 @@ def accio_space_data():
     iss_url = "http://api.open-notify.org/iss-now.json"
     urls = [space_url, iss_url]
     rs = (grequests.get(u) for u in urls)
-    space_data = grequests.map(rs)
+    space_data = grequests.map(rs, exception_handler=exception_handler)
     return space_data
 
 
@@ -21,13 +28,11 @@ def accio_image_data(astronauts_data):
                      "&num=10&key={api_key}".format(q=q, search_id=search_id, api_key=api_key)
         urls.append(google_url)
     rs = (grequests.get(u) for u in urls)
-    image_data = grequests.map(rs)
+    image_data = grequests.map(rs, exception_handler=exception_handler)
     for astronaut, image in zip(astronauts_data, image_data):
         try:
-            print image.json().get("items")[0].get("link")
-            # return astronauts_data
             astronaut["image_url"] = image.json().get("items")[0].get("pagemap").get("cse_image")[0].get("src")
         except Exception as e:
-            print "EXCEPTION!!!: {e}".format(e=str(e))
+            logger.error("EXCEPTION!!!: {e}".format(e=str(e)))
             astronaut["image_url"] = "http://bit.ly/2vDf5Mb"
     return astronauts_data
