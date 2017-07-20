@@ -30,6 +30,7 @@ ALLOWED_HOSTS = ["*"]
 GOOGLE_API_KEY = os.environ['GOOGLE_API_KEY']
 GOOGLE_SEARCH_ID = os.environ['GOOGLE_SEARCH_ID']
 
+
 INSTALLED_APPS = (
     'space_invaders',
     'django.contrib.admin',
@@ -107,3 +108,41 @@ STATICFILES_DIRS = (
 )
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+# Loggers
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'file': {
+            'level': 'INFO',
+            'class': 'logging.handlers.WatchedFileHandler',
+            'filename': 'logs/space.log',
+            'formatter': 'verbose',
+            'encoding': 'utf8'
+        },
+        'console': {
+            'level': 'INFO',
+            'class': 'logging.StreamHandler',
+            'formatter': 'verbose',
+            'filters': ['require_debug_true'],
+        }
+    },
+    'loggers': {
+        'space': {
+            'handlers': ['file', 'console'],
+            'level': 'INFO',
+            'propagate': True,
+        }
+    },
+    'formatters': {
+        'verbose': {
+            'format': "[%(asctime)s] %(levelname)s %(module)s %(process)d %(thread)d [%(name)s:%(lineno)s] %(message)s",
+            'datefmt': "%d-%m-%Y %H:%M:%S"
+        },
+        'django': {
+            'format': 'django: %(message)s',
+        },
+    },
+}
