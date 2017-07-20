@@ -115,13 +115,6 @@ LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
     'handlers': {
-        'file': {
-            'level': 'INFO',
-            'class': 'logging.handlers.WatchedFileHandler',
-            'filename': 'logs/space.log',
-            'formatter': 'verbose',
-            'encoding': 'utf8'
-        },
         'console': {
             'level': 'INFO',
             'class': 'logging.StreamHandler',
