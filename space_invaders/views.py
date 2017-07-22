@@ -38,7 +38,7 @@ def index(request):
 @api_view(['GET', 'POST', 'PUT', 'DELETE'])
 def ping(request):
     try:
-        return HttpResponse(data="Invasion is on.", status=200, data_count=1)
+        return HttpResponse(data="Invasion is on.", status=200)
     except Exception as e:
         return HttpResponse(json.dumps({
             'status': 0,
