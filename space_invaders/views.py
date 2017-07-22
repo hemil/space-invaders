@@ -33,4 +33,16 @@ def index(request):
             'data': None
         }), content_type="application/json", status=500)
     return response
-#
+
+
+@api_view(['GET', 'POST', 'PUT', 'DELETE'])
+def ping(request):
+    try:
+        return HttpResponse(data="Invasion is on.", status=200, data_count=1)
+    except Exception as e:
+        return HttpResponse(json.dumps({
+            'status': 0,
+            'message': "Exception: {e}".format(e=e),
+            'error_code': 500,
+            'data': None
+        }), content_type="application/json", status=500)
