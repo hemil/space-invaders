@@ -56,11 +56,11 @@
     {% if iss_data %}
         <div class="col-md-4 col-sm-6">
             <div class="img-caption">
-                <img class="img-rounded img-caption" alt="Map Key Expired." src="https://maps.googleapis.com/maps/api/staticmap?center={{iss_data.iss_position.latitude}},{{iss_data.iss_position.longitude}}&zoom=4&size=600x300&markers=color:blue%7Clabel:S%7C{{iss_data.iss_position.latitude}},{{iss_data.iss_position.longitude}}&key=AIzaSyAVQTOc4NKtKrQ9dHARbrwZ7LO2uLvHevA">
+                <img class="img-rounded img-caption" alt="Map Key Expired." src="https://maps.googleapis.com/maps/api/staticmap?center={{iss_data.iss_position.latitude}},{{iss_data.iss_position.longitude}}&zoom=4&size=600x300&markers=color:blue%7Clabel:ISS%7C{{iss_data.iss_position.latitude}},{{iss_data.iss_position.longitude}}&key=AIzaSyAVQTOc4NKtKrQ9dHARbrwZ7LO2uLvHevA">
             </div>
 
             <div class="img-caption">
-                <b class="title">At {{ iss_data.timestamp }} UTC, ISS was at Lat,Long: {{iss_data.iss_position.latitude}},{{iss_data.iss_position.longitude}}</b><br>
+                <b class="title">At {{ iss_data.timestamp }} UTC, ISS was at: {{iss_data.iss_position.latitude}},{{iss_data.iss_position.longitude}}</b><br>
             </div>
         </div>
     {% else %}
